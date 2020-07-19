@@ -1,0 +1,30 @@
+<h3>Cart</h3>
+<div *ngIf="items.length == 0" class="margin-ninety">
+    <p>Nothing here yet!</p>
+</div>
+<div *ngIf="items.length > 0" class="detail-section">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let tempProduct of items">
+                <td>
+                    <img src="{{tempProduct.imageUrl}}" height="140" width="140">
+                </td>
+                <td class="align-middle">{{ tempProduct.name }}</td>
+                <td class="align-middle">{{ tempProduct.unitPrice | currency:'USD'}}</td>
+                <td class="align-middle">{{ tempProduct.quantity }}</td>
+                <button (click)="removeItem(tempProduct)" class="btn btn-primary btn-sm margin-remove">Remove</button>
+            </tr>
+        </tbody>
+    </table>
+    <a routerLink="/checkout" class="primary-btn">Checkout</a>
+</div>

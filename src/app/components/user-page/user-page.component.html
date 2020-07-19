@@ -1,0 +1,101 @@
+<div class="margin-ninety alert alert-danger" *ngIf="loggedIn == 'no'">
+    <h2>User not logged in</h2>
+</div>
+<div *ngIf="loggedIn == 'yes'">
+<div class="margin-ninety">
+    <h6>User name:</h6>
+    <p>{{currentUser.firstName}} {{currentUser.lastName}}</p>
+
+    <h6>User login:</h6>
+    <p>{{currentUser.login}}</p>
+
+    <h6>User role:</h6>
+    <p>{{currentUser.role}}</p>
+</div>
+
+<hr *ngIf="favorites.length > 0">
+
+<div *ngIf="favorites.length > 0" class="detail-section">
+    <h5>Favorites:</h5>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Image</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let favorite of favorites">
+                <img src="{{ favorite.imageUrl }}" class="detail-img">
+                <td class="align-middle">{{ favorite.name }}</td>
+                <td class="align-middle">{{ favorite.unitPrice | currency: 'USD' }}</td>
+                <button class="btn btn-primary" (click)="removeFromFavorites(favorite.id)">Remove</button>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr *ngIf="orders.length > 0">
+
+<div *ngIf="orders.length > 0" class="detail-section">
+    <h5>Order history:</h5>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Order id</th>
+                <th>Shipping</th>
+                <th>Payment type</th>
+                <th>Order total</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td class="align-middle">{{ orders.indexOf(order) + 1}}</td>
+                <td class="align-middle">{{ order.shipping }}</td>
+                <td class="align-middle">{{ order.payment }}</td>
+                <td class="align-middle">{{ order.total | currency: 'USD' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr *ngIf="forumPosts.length > 0">
+
+<div *ngIf="forumPosts.length > 0" class="detail-section">
+<table class="table table-hover">
+    <h5>Forum posts:</h5>
+    <thead class="thead-dark">
+        <tr>
+            <th>Forum post name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody class="margin-ninety">
+        <tr *ngFor="let forumPost of forumPosts">
+            <a routerLink="/forum/{{ forumPost.id }}">{{forumPost.postName}}</a>
+            <button class="btn btn-default" (click)="deleteForumPost(forumPost.id)">Delete</button>
+            <hr>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+<div>
+    <a class="btn btn-primary" routerLink="/edit">Edit account</a>
+</div>
+
+<div *ngIf="currentUser.role == 'admin'">
+    <a class="btn btn-primary" routerLink="/editAdmin">Edit product list</a>
+</div>
+
+<div *ngIf="currentUser.role == 'admin'">
+    <a class="btn btn-primary" routerLink="/addAdmin">Add new product</a>
+</div>
+</div>

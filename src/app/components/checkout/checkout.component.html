@@ -1,0 +1,27 @@
+<form class="margin-ninety" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+  <div class="form-group">
+
+    <div>
+      Total is: {{totalPrice | currency: 'USD'}}
+    </div>
+
+    <div class="form-group">
+      <label for="payment">Payment type</label>
+      <select id="payment" class="form-control" formControlName="payment" required>
+        <option *ngFor="let payment of payments" [value]="payment">{{payment}}</option>
+      </select>
+      <div *ngIf="payment.errors?.required" class="alert alert-danger">Payment type is required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="shipping">Payment type</label>
+      <select id="shipping" class="form-control" formControlName="shipping" required>
+        <option *ngFor="let shipping of shippings" [value]="shipping">{{shipping}}</option>
+      </select>
+      <div *ngIf="shipping.errors?.required" class="alert alert-danger">Shipping type is required</div>
+    </div>
+
+  </div>
+
+  <button class="button" type="submit" class="btn btn-default" [disabled]="checkoutForm.invalid">Submit order</button>
+</form>

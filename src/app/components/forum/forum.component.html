@@ -1,0 +1,52 @@
+<div class="margin-ninety">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Forum post name</th>
+                <th *ngIf="loggedIn == 'yes'">Action</th>
+            </tr>
+        </thead>
+
+        <tbody class="margin-ninety">
+            <tr *ngIf="forumPosts.length == 0">
+                <p>Nothing here yet!</p>
+            </tr>
+
+            <tr *ngFor="let forumPost of forumPosts">
+                <td>
+                    <a routerLink="/forum/{{ forumPost.id }}">{{forumPost.postName}}</a>
+                </td>
+                <button *ngIf="currentUser.login == forumPost.createdBy" class="btn btn-primary btn-remove"
+                    (click)="deleteForumPost(forumPost.id)">Delete</button>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="loggedIn == 'yes'">
+
+        <hr>
+
+        <form class="margin-ninety" [formGroup]="forumPostForm" (ngSubmit)="onSubmit(forumPostForm.value)">
+            <div class="form-group">
+                <label for="postName">Post name</label>
+                <input id="postName" class="form-control input-basic" formControlName="postName" required>
+
+                <div class="alert alert-danger" *ngIf="postName.errors?.required">
+                    Post Name is required
+                </div>
+
+                <div class="alert alert-danger" *ngIf="postName.errors?.minlength">
+                    Minimum length of post name is 10 symbols
+                </div>
+
+                <div class="alert alert-danger" *ngIf="postName.errors?.maxlength">
+                    Max length of post name is 200 symbols
+                </div>
+            </div>
+
+            <button class="button" type="submit" class="btn btn-primary"
+                [disabled]="forumPostForm.invalid">Create</button>
+        </form>
+    </div>
+
+</div>

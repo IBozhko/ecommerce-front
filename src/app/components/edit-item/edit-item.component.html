@@ -1,0 +1,87 @@
+<div class="detail-section">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image URL</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr>
+                <td class="align-middle">{{ product?.name }}</td>
+                <td class="align-middle">{{ product?.description }}</td>
+                <td class="align-middle">{{ product?.unitPrice }}</td>
+                <td class="align-middle">{{ product?.imageUrl }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<form class="margin-ninety" [formGroup]="productForm" (ngSubmit)="onSubmit(productForm.value)">
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" formControlName="name" required>
+
+        <div class="alert alert-danger" *ngIf="name.errors?.required">
+            Name is required
+        </div>
+
+        <div class="alert alert-danger" *ngIf="name.errors?.minlength">
+            Name must be at least 2 charachers long
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" class="form-control" formControlName="description" required>
+
+        <div class="alert alert-danger" *ngIf="description.errors?.required">
+            Description is required
+        </div>
+
+        <div class="alert alert-danger" *ngIf="description.errors?.minlength">
+            Description must be at least 2 charachers long
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="unitPrice">Price</label>
+        <input id="unitPrice" class="form-control" formControlName="unitPrice" required>
+
+        <div class="alert alert-danger" *ngIf="unitPrice.errors?.required">
+            Price is required
+        </div>
+
+        <div class="alert alert-danger" *ngIf="unitPrice.errors?.minlength">
+            Price must be at least 4 charachers long
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="imageUrl">Image URL</label>
+        <input id="imageUrl" class="form-control" formControlName="imageUrl" required>
+
+        <div class="alert alert-danger" *ngIf="imageUrl.errors?.required">
+            Image URL is required
+        </div>
+
+        <div class="alert alert-danger" *ngIf="imageUrl.errors?.minlength">
+            Image URL must be at least 4 charachers long
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="underDiscount">Under discount</label>
+        <select id="underDiscount" class="form-control"
+        formControlName="underDiscount" required>
+            <option *ngFor="let option of underDiscountOptions" [value]="option">{{option}}</option>
+        </select>
+    </div>
+
+    <button class="button" type="submit" class="btn btn-default"
+    [disabled]="productForm.invalid">Confirm</button>
+</form>

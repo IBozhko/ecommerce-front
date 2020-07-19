@@ -1,0 +1,30 @@
+<form class="margin-ninety" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <div class="form-group">
+        <label for="login">Login</label>
+        <input id="login" class="form-control" formControlName="login" required>
+
+        <div class="alert alert-danger" *ngIf="login.errors?.required">
+            Login is required
+        </div>
+
+        <div class="alert alert-danger" *ngIf="login.errors?.minlength">
+            Login must be at least 4 charachers long
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" formControlName="password" required>
+
+        <div class="alert alert-danger" *ngIf="password.errors?.required">
+            Password is required
+        </div>
+
+        <div class="alert alert-danger" *ngIf="password.errors?.minlength">
+            Password must be at least 4 charachers long
+        </div>
+    </div>
+
+    <button class="button" type="submit" class="btn btn-default"
+    [disabled]="loginForm.invalid">Login</button>
+</form>

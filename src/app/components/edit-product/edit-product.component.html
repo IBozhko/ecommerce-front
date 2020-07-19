@@ -1,0 +1,27 @@
+<h3>Cart</h3>
+<div class="detail-section">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>
+                    <img src="{{product.imageUrl}}" height="140" width="140">
+                </td>
+                <td class="align-middle">{{ product.name }}</td>
+                <td class="align-middle">{{ product.unitPrice | currency:'USD'}}</td>
+                <td class="align-middle">{{ product.description }}</td>
+                <button (click)="deleteItem(product.id)" class="btn btn-primary btn-sm">Delete</button>
+                <a routerLink="/editItem/{{ product.id }}">Edit</a>
+            </tr>
+        </tbody>
+    </table>
+</div>
